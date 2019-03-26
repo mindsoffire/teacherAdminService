@@ -72,7 +72,7 @@ var transporter = nodemailer.createTransport({
         pass: 'NaiShanajtest612345'
     }
 });
-const SERVERNPORT = 'https://ajafsnode1.serveo.net'; /* 'ajafsnode1.serveo.net'; */ // from: 'ajtestacct@yahoo.com',
+const SERVERNPORT = 'https://ajafsnode.serveo.net'; /* 'ajafsnode1.serveo.net'; */ 
 var vURL = ''; // to: subscriber/signup email,
 var mailOptions = { // subject: 'Sending Email using Node.js',
     from: 'ajphonehome@gmail.com', // html: '<h1>Welcome</h1><p>That was easy!</p>'

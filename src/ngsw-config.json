@@ -68,9 +68,9 @@
       }
     },
     {
-      "name": "from-api-https://ajafsnode1.serveo.net-networkfirst",
+      "name": "from-api-https://ajafsnode.serveo.net-networkfirst",
       "urls": [
-        " http://localhost:6707/**"
+        " http://localhost:6706/**"
       ],
       "cacheConfig": {
         "strategy": "freshness",

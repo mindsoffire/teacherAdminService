@@ -1,17 +1,17 @@
 {
-  "name": "land-ab-master",
+  "name": "teacher-admin-master",
   "version": "0.9.0",
   "license": "MIT",
-  "main": "pagent.js",
+  "main": "index.js",
   "scripts": {
     "ng": "ng",
-    "start": "node pagent.js",
+    "start": "node index.js",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --aot --prod && node pagent.js && ssh -R ajafsnode.serveo.net:80:localhost:6707 serveo.net",
-    "comment": "ng build --aot --prod && mkdir public.\\images && copy images public.\\images && node pagent.js && ssh -R ajverilink.serveo.net:80:localhost:6707 serveo.net"
+    "postinstall": "ng build --aot --prod && node index.js && ssh -R ajafsnode.serveo.net:80:localhost:6707 serveo.net",
+    "comment": "ng build --aot --prod && mkdir public.\\images && copy images public.\\images && node index.js && ssh -R ajverilink.serveo.net:80:localhost:6707 serveo.net"
   },
   "private": true,
   "dependencies": {

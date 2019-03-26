@@ -1,6 +1,6 @@
 let aj = require('ajlearnjs');
 
-aj.serve.appStartNUseAllMware(6707); 
+aj.serve.appStartNUseAllMware(6707);
 
 const path = aj.serve.path;
 const fs = aj.serve.fs;
@@ -72,7 +72,7 @@ var transporter = nodemailer.createTransport({
         pass: 'NaiShanajtest612345'
     }
 });
-const SERVERNPORT = 'https://ajafsnode.serveo.net'; /* 'ajafsnode1.serveo.net'; */ 
+const SERVERNPORT = 'https://ajafsnode.serveo.net'; /* 'ajafsnode1.serveo.net'; */
 var vURL = ''; // to: subscriber/signup email,
 var mailOptions = { // subject: 'Sending Email using Node.js',
     from: 'ajphonehome@gmail.com', // html: '<h1>Welcome</h1><p>That was easy!</p>'
@@ -111,6 +111,7 @@ if (!doneOnce) {
                     // fillPropertyMasterList.landSize = +propAndusr.landSize;
                     // fillPropertyMasterList.BUA = +propAndusr.BUA;
                     fillPropertyMasterList.stName = propAndusr.stName;
+                    fillPropertyMasterList.teacherEmail = propAndusr.teacherEmail;
                     fillPropertyMasterList.listPhotoIcon = propAndusr.listPhotoIcon;
                     fillPropertyMasterList.is_deleted = propAndusr.is_deleted;
                     fillPropertyMasterList.legalNameID = agentDistributedCMSJSONdB[0].usr.legalNameID;
@@ -222,7 +223,7 @@ aj.serve.app.post('/api/KYCupdate', (req, res) => {
                 if (req.body.encLegalNameID)
                     updateUsrAst[0].usr.legalNameID = aj.f_encDecUsrName(req.body.encLegalNameID, -1).fullName;
                 updateUsrAst[0].usr.mobileNumID = aj.f_rotjaF(req.body.encMobileNumID);
-               
+
                 for (let [AllIndex, astItem] of searchAllItems.entries()) {
                     if (astItem.usrCode == updateUsrAst[0].usr.usrCode) {
                         astItem.legalNameID = updateUsrAst[0].usr.legalNameID;
@@ -476,6 +477,7 @@ aj.serve.app.post('/api/register', (req, res) => {
                                 // searchAllItems[idx1].landSize = +updateUsrAst[idx].landSize;
                                 // searchAllItems[idx1].BUA = +updateUsrAst[idx].BUA;
                                 searchAllItems[idx1].stName = updateUsrAst[idx].stName;
+                                searchAllItems[idx1].teacherEmail = updateUsrAst[idx].teacherEmail;
                                 searchAllItems[idx1].listPhotoIcon = updateUsrAst[idx].listPhotoIcon;
                                 searchAllItems[idx1].is_deleted = updateUsrAst[idx].is_deleted;
                                 searchAllItems[idx1].legalNameID = updateUsrAst[0].usr.legalNameID;
@@ -505,6 +507,7 @@ aj.serve.app.post('/api/register', (req, res) => {
                     // updatePropyMasterList.landSize = +req.body.myUsrUpdateList[0].landSize;
                     // updatePropyMasterList.BUA = +req.body.myUsrUpdateList[0].BUA;
                     updatePropyMasterList.stName = req.body.myUsrUpdateList[0].stName;
+                    updatePropyMasterList.teacherEmail = req.body.myUsrUpdateList[0].teacherEmail;
                     updatePropyMasterList.listPhotoIcon = req.body.myUsrUpdateList[0].listPhotoIcon;
                     updatePropyMasterList.is_deleted = req.body.myUsrUpdateList[0].is_deleted;
                     updatePropyMasterList.legalNameID = updateUsrAst[0].usr.legalNameID;
@@ -538,6 +541,56 @@ aj.serve.app.post('/api/register', (req, res) => {
         }
     }
 });
+
+aj.serve.app.post('/api/suspend', (req, res) => {
+    aj.trace('/api/suspend[POST]: req.body')(req.body);
+
+    for (let [AllIndex, astItem] of searchAllItems.entries()) {
+        if (astItem.stName == req.body.student.trim()) {
+            astItem.suspended = true;
+            fs.writeFile(`./propylist-master.json`, JSON.stringify(searchAllItems), 'utf8', (err) => {
+                if (err) {
+                    console.log("::eror:: writing to propertyList-master jsonDB file.");
+                }
+                console.log("::good:: updated propertyList-master jsonDB file.");
+            });
+        }
+    }
+    return res.status(204).end();
+
+});
+
+aj.serve.app.get('/api/commonstudents', (req, res) => {
+    aj.trace('/api/commonstudents[GET]: req.query')(req.query);
+
+    let retnObj = []; console.log({ 'req.query.teacher.length': req.query.teacher.length });
+
+    for (let [AllIndex, astItem] of searchAllItems.entries()) {
+        if (typeof req.query.teacher === 'string') {
+            if (astItem.teacherEmail == req.query.teacher.trim()) {
+                retnObj.push(astItem.stName);
+            };
+        };
+        if (typeof req.query.teacher === 'object') {
+            let len = 0; var teacherLenMore = true;
+            for (teacher of req.query.teacher) {
+                if (astItem.teacherEmail == teacher) console.log({ len: len += 1 });
+            }
+            if (len === req.query.teacher.length) retnObj.push(astItem.stName);
+        };
+    };
+    teacherLenMore ?
+        retnObj.push('student(s)_only_under_teachers_' + req.query.teacher.join('_and_'))
+        :
+        retnObj.push('student(s)_only_under_teacher_' + req.query.teacher.trim());
+    return res.status(200).json({
+        students: retnObj,
+        status: `..successfully returned set of teacher-students or common-students-against-given-teachers!`
+    });
+
+});
+
+
 
 // console.log(aj.f_genIssueToken('jskJIrKKswx@LjHsP.nrj', '3cc98b78aabdbb22273c4679870ad2e05c8672707675734f0ea2fbef6618d651', 'rw_'));
 console.log(aj.f_genIssueToken('jskJIrKKswx@LjHsP.nrj', null, 'rw_'));

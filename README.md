@@ -16,16 +16,17 @@ A replicated teacher-student datastore is initialised for production at a Google
 ## Development server
 
 Comment out these lines at the end of index.js to run in dev mode. 
-aj.serve.app.use(aj.serve.express.static(__dirname + '/dist'));
 
-aj.serve.app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
+`aj.serve.app.use(aj.serve.express.static(__dirname + '/dist'));` ;
+
+`aj.serve.app.get('/*', (req, res) => {`
+`    res.sendFile(path.join(__dirname + '/dist/index.html'));`
+`});`
 
 In ngsw-config.json file, change the "urls" under "dataGroups" to reflect "http://localhost:6707/**"
-      "urls": [
-        " https://ajafsnode.serveo.net/**"
-      ],
+`     "urls": [`
+`        " https://ajafsnode.serveo.net/**"`
+`      ],`
 
 and in src/app/services/auth.service.ts file, change the following to:
 readonly SERVER = "http://localhost:6707"; // instead of "https://ajafsnode.serveo.net"

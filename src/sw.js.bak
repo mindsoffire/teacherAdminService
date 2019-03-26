@@ -1,0 +1,56 @@
+const staticAssets = [
+    './assets/news',
+    './assets/news/fallback.json',
+    './assets/news/fetch-dog.jpg',
+    "https://fonts.googleapis.com/icon?family=Material+Icons",
+    "https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i|Open+Sans:300,300i,400,400i,600,600i|Roboto:300,300i,400,400i,500,500i&amp;subset=greek,greek-ext,latin-ext,vietnamese"
+];
+const CACHE_VERSION = 'v2';
+const CACHE_NAME = `${registration.scope}!${CACHE_VERSION}`;
+
+
+self.addEventListener('install', async event => {
+    // self.skipWaiting();
+    console.log(`ServiceWorker installed at`, {locationOrigin: location.origin, registrationScope: registration.scope});
+    const cache = await caches.open(CACHE_NAME+'news-static');
+    cache.addAll(staticAssets);
+});
+
+self.addEventListener('fetch', event => {
+    
+    const req = event.request;
+    const url = new URL(req.url);
+
+    console.log(location.origin + url.origin);
+    if (url.origin == location.origin) {
+        console.log('basic');
+        event.respondWith(cacheFirst(req));
+    } else {
+        console.log('cors');
+        event.respondWith(networkFirst(req));
+    }
+})
+
+self.addEventListener('activate', async event => {
+    await self.clients.claim();
+    // event.waitUntil(self.clients.claim());
+    
+});
+
+async function cacheFirst(req) {        // const cachedRes = await caches.match(req);
+    console.log(JSON.stringify({ caches }));
+    return await caches.match(req) || await fetch(req);
+}
+
+async function networkFirst(req) {
+    const cache = await caches.open('news-dynamic');
+    console.log(JSON.stringify({ cache }));
+    try {
+        const res = await fetch(req);
+        cache.put(req, res.clone());
+        console.log(JSON.stringify({ cachePut: cache.put }));
+        return res;
+    } catch (error) {                   // const cachedRes = await cache.match(req);
+        return await cache.match(req) || await caches.match('./fallback.json');
+    }
+}

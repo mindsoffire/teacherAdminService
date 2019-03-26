@@ -1,0 +1,5 @@
+{
+    "editor.wordWrap": "on",
+    "html.format.wrapAttributes": "auto",
+    "json.format.enable": true
+}

@@ -1,0 +1,42 @@
+<mat-card class="result">
+  <mat-card-content>
+    <h3 class="example-h2">Featured / New Projects
+      <button style="font-size: 10px" mat-button color="primary" mattooltip="Go browse!" routerLink="/"
+        (click)="browseAll()">
+        <mat-icon>restore_page</mat-icon>BrowseAllStudents</button>
+    </h3>
+
+    <slideshow #slideshow [height]="'130px'" [minHeight]="'25px'" [autoPlay]="true" [showArrows]="true" [imageUrls]="imageSources"
+      [lazyLoad]="imageSources?.length > 1" [autoPlayWaitForLazyLoad]="false">
+    </slideshow>
+
+    <!--     <mat-list dense>
+      <mat-list-item> Pepper </mat-list-item>
+      <mat-list-item> Salt </mat-list-item>
+      <mat-list-item> Paprika </mat-list-item>
+    </mat-list>
+
+    <section class="example-section">
+      <mat-slide-toggle class="example-margin" [color]="color" [checked]="checked" [disabled]="disabled">
+        Slide me!
+      </mat-slide-toggle>
+    </section> -->
+    <!--     <div style="padding: 10px; border: 1px green solid; margin: 10px">
+      <router-outlet></router-outlet>
+    </div> -->
+
+  </mat-card-content>
+</mat-card>
+
+<header>
+  <h1>News</h1>
+  <select id="sourceSelector" [value]="defaultSource" (change)="updateNews(sourceSelector.value)">
+    <!-- <option value="defaultSource">{{defaultSource}}</option> -->
+  </select>
+</header>
+
+<main id="main">
+</main>
+<!-- <script>
+  sourceSelector.value = defaultSource;
+</script> -->

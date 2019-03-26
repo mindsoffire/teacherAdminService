@@ -1,0 +1,126 @@
+<mat-toolbar class="app-toolbar">
+  <mat-toolbar-row class="transparent transparent-background" color="primary">
+    <!-- <button mat-button (click)="sidenav.toggle()"> -->
+    <button mat-icon-button color="primary" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <!-- <mat-icon *ngIf="libSvc.libUsrCMSServerOn && tokenSvc.loggedIn">cell_wifi</mat-icon> -->
+    <!-- <span *ngIf="libSvc.usrCMSDataNotCached && tokenSvc.loggedIn">
+      <mat-icon>portable_wifi_off</mat-icon><small>uncached</small>
+    </span> -->
+    <button *ngIf="tokenSvc.loggedIn" mat-icon-button color="warn" routerLink="/agent-kyc">
+      <mat-icon>account_balance_wallet</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" (click)="tokenSvc.googleLogin()">
+      <mat-icon>account_box</mat-icon>{{usrname}}
+    </button>
+
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item disabled>
+        <mat-icon>dialpad</mat-icon>
+        <span>Last number dial</span>
+      </button>
+      <button *ngIf="!tokenSvc.loggedIn" mat-menu-item routerLink="/plugin">
+        <mat-icon>account_box</mat-icon>
+        <span>Login</span>
+      </button>
+      <button *ngIf="tokenSvc.loggedIn" mat-menu-item (click)="logout()">
+        <mat-icon>account_box</mat-icon>
+        <span>Soft logout</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>notifications_off</mat-icon>
+        <span>Disable alerts</span>
+      </button>
+    </mat-menu>
+    <!-- img src="../../icons8-enter-24.png"  -->
+    <span class="example-spacer"></span>
+
+    <button mat-icon-button color="primary" routerLink="/">
+      <mat-icon>home</mat-icon>
+    </button>
+   
+  </mat-toolbar-row>
+   <!--
+  <mat-toolbar-row color="primary" class="ajflexrow-container">
+    <mat-button-toggle-group class="ajcat-button-label" style="display: flex; max-width: 40%;" [value]="searchType"
+      [(ngModel)]="searchType">
+      <mat-button-toggle value="buy">Buy</mat-button-toggle>
+      <mat-button-toggle value="rent">Rent</mat-button-toggle>
+    </mat-button-toggle-group>
+    <mat-form-field class="ajinput-text" color="warn" style="margin:6px; max-width: 55%">
+      <span matPrefix>S$ :</span>
+      <input matInput type="number" style="text-align: center" #searchStr="ngModel" [(ngModel)]="searchPrice" maxlength="10"
+        placeholder="Your ({{searchType}}ing) limit price:" [disabled]="districtSelected=='none'||bedrmsSelected=='none'"
+        (keyup.enter)="searchAll()" required>
+      <mat-hint *ngIf="searchType=='rent'" align="start">
+        <strong>/mth</strong>
+      </mat-hint>
+      <mat-hint align="end">Select all search params to enable</mat-hint>
+      <mat-icon color="warn" *ngIf="searchStr.value" matSuffix (click)="searchPrice=''">close</mat-icon>
+      <mat-icon color="accent" *ngIf="searchStr.value" (click)="searchAll()" matSuffix>search</mat-icon>
+    </mat-form-field>
+  </mat-toolbar-row>
+  <mat-toolbar-row class="ajflexrow-container ajinput-text">
+    <mat-form-field class="ajflexrow-item">
+      <mat-select style="text-align: center" [(value)]="typeOfProptySelected">
+        <mat-option disabled value="none">Property Type</mat-option>
+        <mat-option value="hdb">Type: HDB</mat-option>
+        <mat-option value="condo">Type: Condo</mat-option>
+        <mat-option value="landed">Type: Landed</mat-option>
+        <mat-option value="gcb">Type: GC Bungalow</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ajflexrow-item">
+      <mat-select style="text-align: center" [(value)]="districtSelected">
+        <mat-option disabled value="none">District</mat-option>
+        <mat-option value=1>District 1</mat-option>
+        <mat-option value=2>District 2</mat-option>
+        <mat-option value=3>District 3</mat-option>
+        <mat-option value=4>District 4</mat-option>
+        <mat-option value=5>District 5</mat-option>
+        <mat-option value=6>District 6</mat-option>
+        <mat-option value=7>District 7</mat-option>
+        <mat-option value=8>District 8</mat-option>
+        <mat-option value=9>District 9</mat-option>
+        <mat-option value=10>District 10</mat-option>
+        <mat-option value=11>District 11</mat-option>
+        <mat-option value=12>District 12</mat-option>
+        <mat-option value=13>District 13</mat-option>
+        <mat-option value=14>District 14</mat-option>
+        <mat-option value=15>District 15</mat-option>
+        <mat-option value=16>District 16</mat-option>
+        <mat-option value=17>District 17</mat-option>
+        <mat-option value=18>District 18</mat-option>
+        <mat-option value=19>District 19</mat-option>
+        <mat-option value=20>District 20</mat-option>
+        <mat-option value=21>District 21</mat-option>
+        <mat-option value=22>District 22</mat-option>
+        <mat-option value=23>District 23</mat-option>
+        <mat-option value=24>District 24</mat-option>
+        <mat-option value=25>District 25</mat-option>
+        <mat-option value=26>District 26</mat-option>
+        <mat-option value=27>District 27</mat-option>
+        <mat-option value=28>District 28</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="ajflexrow-item">
+      <mat-select style="text-align: center" [(value)]="bedrmsSelected">
+        <mat-option disabled value="none">BedRooms</mat-option>
+        <mat-option value=1>1 BedRm / Studio</mat-option>
+        <mat-option value=2>2 BedRms</mat-option>
+        <mat-option value=3>3 BedRms</mat-option>
+        <mat-option value=4>4 BedRms</mat-option>
+        <mat-option value=5>5 BedRms</mat-option>
+        <mat-option value=6>6 BedRms</mat-option>
+        <mat-option value=7>7 BedRms</mat-option>
+        <mat-option value=8>8 BedRms</mat-option>
+        <mat-option value=9>9 BedRms</mat-option>
+        <mat-option value=10>10 BedRms</mat-option>
+        <mat-option value=11>Penthouse</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-toolbar-row> -->
+</mat-toolbar>
+
+<router-outlet></router-outlet>

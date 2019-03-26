@@ -1,0 +1,28 @@
+[{
+		"usr": {
+			"encEmailID": "HNjskJIrKKswx@LjHsP.nrj.",
+			"hshPW": "288fc534f64a341b89fe789f576adcf06637e8762d86b0dbc2abd390eb974fd3",
+			"clntCreatDate": "2019-01-31T13:12:09.685Z",
+			"usrCode": "ajmindsoffire@gmail.com.@JScorp",
+			"legalNameID": null,
+			"mobileNumID": null
+		}
+	}, {
+		"id": 0,
+		"offerType": "",
+		"proptyType": "",
+		"district": "",
+		"numBedRms": "",
+		"price": "",
+		"landSize": "",
+		"BUA": "",
+		"stName": "",
+		"listPhotoIcon": "",
+		"ownerName": "ADD NEW",
+		"ownerMobile": "",
+		"ownerEmail": "",
+		"propyFullAddr": "",
+		"postCode": "",
+		"is_deleted": false
+	}
+]

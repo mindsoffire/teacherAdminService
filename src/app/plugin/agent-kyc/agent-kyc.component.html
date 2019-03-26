@@ -1,0 +1,320 @@
+<mat-accordion class="example-headers-align">
+  <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle="true">
+    <mat-expansion-panel-header [collapsedHeight]="'150px'" [expandedHeight]="'150px'">
+
+      <mat-panel-title>
+        <mat-card>
+          <img style="max-width: 60px; max-height: 120px" mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+            alt="Photo of a Shiba Inu">
+          <mat-card-content style="text-align: left">Personal data
+          </mat-card-content>
+        </mat-card>
+
+      </mat-panel-title>
+      <mat-panel-description>
+        <mat-form-field style="align-content: center">
+          <mat-label><small>Agency-Client Credentials for</small></mat-label>
+          <strong>
+            <input matInput type="text" disabled [ngModel]="tokenSvc.usrKYCDisp.legalNameID" placeholder="{{tokenSvc.usrKYCDisp.legalNameID}}">
+          </strong>
+        </mat-form-field>
+        <mat-icon>fingerprint</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="collapsible-header">
+      <i class="material-icons">face</i>Teacher Code : {{kyc?.usrCode}}</div>
+    <div class="collapsible-body">
+      <br>
+      <div class="example-full-width">
+        <mat-form-field style="min-width: 500px">
+          <mat-label>
+            <strong>NAME</strong> eg. Trump Augustine Tan Cheng Bok)</mat-label>
+          <input matInput type="text" #name="ngModel" id="name" name="legalName" [(ngModel)]="tokenSvc.usrKYCDisp.legalNameID" class="validate"
+            placeholder="{{tokenSvc.usrKYCDisp.legalNameID}}" required>
+        </mat-form-field>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">phone</i>
+        <input type="text" #tellID="ngModel" id="tellID" name="tellID" [(ngModel)]="tokenSvc.usrKYCDisp.mobileNumID" class="validate"
+          placeholder="{{tokenSvc.usrKYCDisp.mobileNumID}}" required>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">email</i>
+        <input type="text" disabled="true" #emailID="ngModel" id="emailID" name="emailID" [(ngModel)]="tokenSvc.usrKYCDisp.emailID"
+          class="validate" placeholder="{{tokenSvc.usrKYCDisp.emailID}}" required>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">cake</i>
+        <input type="date" #DOB="ngModel" id="DOB" name="DOB" [(ngModel)]="tokenSvc.usrKYCDisp.DOB" placeholder="{{tokenSvc.usrKYCDisp.DOB}}"
+          class="datepicker">
+      </div>
+      <br>
+      <mat-form-field>
+        <mat-select [(ngModel)]="tokenSvc.usrKYC.gender" placeholder="Gender">
+          <!-- <mat-option>None</mat-option> -->
+          <mat-option *ngFor="let g of gender" [value]="g.value">
+            {{g.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <br>
+      <button mat-raised-button color="accent" (click)="updateKYC()">Update-Save</button>
+      <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      <button mat-raised-button color="warn" (click)="resetPW()">Reset PW</button>
+    </div>
+
+    <mat-action-row>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [disabled]="true" [expanded]="step === 1" (opened)="setStep(1)" hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Community Contacts
+      </mat-panel-title>
+      <mat-panel-description>
+        VirtualRm (Paid Subscription)
+        <mat-icon>account_balance_wallet</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="collapsible-header">
+      <i class="material-icons">place</i>Contact & Address</div>
+    <div class="collapsible-body"> </div>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title> Teacher-Students </mat-panel-title>
+      <mat-panel-description>
+        Student Details
+        <mat-icon>store_mall_directory</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="collapsible-header">
+      <header>
+        <button mat-raised-button color="primary" (click)="addToList()">Add New Teacher-Student</button>
+        <button mat-raised-button color="accent" (click)="saveAll(listOwners.value)">Save All Teacher-Students</button>
+      </header>
+      <hr>
+      <header>
+        <i class="material-icons">location_city</i>Select Teacher
+        <select id="listOwners" [value]="defaultOwner" (change)="updateCRUDList(listOwners.value)">
+        </select>
+      </header>
+    </div>
+
+    <div class="collapsible-body">
+
+      <section id="crudList">
+        <br>
+        <header>
+          <h3>Teacher ID</h3>
+        </header>
+      
+        <div class="input-field col s12">
+          <i class="material-icons prefix">perm_identity</i>
+          <input type="text" #usrnameID="ngModel" id="usrnameID" name="usrnameID" [(ngModel)]="myuser_listing[0].teacherName" class="validate"
+            placeholder="{{myuser_listing[0].teacherName}}" maxlength="20" required>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">phone</i>
+          <input type="text" #usrtellID="ngModel" id="usrtellID" name="usrtellID" [(ngModel)]="myuser_listing[0].teacherMobile" class="validate"
+            placeholder="{{myuser_listing[0].teacherMobile}}" required>
+        </div>
+      
+        <div class="input-field col s12">
+          <i class="material-icons prefix">email</i>
+          <input type="text" #usremailID="ngModel" id="usremailID" name="usremailID" [(ngModel)]="myuser_listing[0].teacherEmail" class="validate"
+            placeholder="{{myuser_listing[0].teacherEmail}}" required>
+        </div>
+        <br>
+        <hr>
+
+        
+        <div *ngFor="let prop of myuser_listing">
+          <div class="input-field col s12">
+            <br>
+            <header>
+              <button mat-raised-button color="accent" [disabled]="chgOnePicOnly" (click)="prop.chgPic='resetPic'">Change
+                Student Pic</button>
+              <button mat-raised-button color="warn" (click)="saveAll(listOwners.value, true, prop.id)">Delete Student</button>
+            </header>
+
+            <br>
+            <div *ngIf="prop.chgPic=='resetPic'" style="display: flex; justify-content: space-between; align-items: center; flex-direction: row; flex-wrap: wrap;">
+              <span class="card-image">
+                <img style="max-height: 150px" id="imgPreview" [hidden]="localUrl==''" alt="your image" [src]="localUrl" class="activator imgPlaceholder"
+                />
+              </span>
+              <span class="card-stacked">
+
+                <span class="card-content">
+                </span>
+                <span class="card-action">
+                  <form method="POST" action="https://ajimage.localtunnel.me/images" enctype="multipart/form-data">
+                    <input type="file" #proptyPic id="{{prop.id}}new" name="proptyPic" accept=".*" (change)="showPreviewImage($event)" />
+                    <label for="{{prop.id}}new">.. accepts *.jpg/jpeg *.png *.gif</label>
+                    
+                    <input type="submit" [disabled]="localUrl==''" value="Upload/replace property pic" (click)="sendNewPic(prop.teacherName, prop.id)"
+                    />
+                  </form>
+                </span>
+              </span>
+            </div>
+            <br>
+
+            <img matListAvatar style="display: flex; height: auto; max-width: 120px; justify-content: flex-start; flex-direction: row"
+              src="{{libSvc.SERVER}}/images/{{prop.listPhotoIcon}}" alt="">
+            <br>
+          </div>
+          <!--
+          <div class="input-field col s12">
+            <i class="material-icons prefix">layers</i>
+            <input type="text" #usrPropBUA="ngModel" id="usrPropBUA" name="usrPropBUA" [(ngModel)]="prop.BUA" class="validate" placeholder="{{prop.BUA}}"
+              required>
+            <label for="usrPropBUA">sqft@built-upArea</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">layers_clear</i>
+            <input type="text" #usrPropLandSize="ngModel" id="usrPropLandSize" name="usrPropLandSize" [(ngModel)]="prop.landSize"
+              class="validate" placeholder="{{prop.landSize}}" required>
+            <label for="usrPropLandSize">sqft@landSize</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">terrain</i>
+
+
+            <mat-form-field class="ajflexrow-item1">
+              <mat-select style="text-align: left" [(value)]="prop.district">
+                <mat-option disabled value="none">District</mat-option>
+                <mat-option value="1">District 1</mat-option>
+                <mat-option value="2">District 2</mat-option>
+                <mat-option value="3">District 3</mat-option>
+                <mat-option value="4">District 4</mat-option>
+                <mat-option value="5">District 5</mat-option>
+                <mat-option value="6">District 6</mat-option>
+                <mat-option value="7">District 7</mat-option>
+                <mat-option value="8">District 8</mat-option>
+                <mat-option value="9">District 9</mat-option>
+                <mat-option value="10">District 10</mat-option>
+                <mat-option value="11">District 11</mat-option>
+                <mat-option value="12">District 12</mat-option>
+                <mat-option value="13">District 13</mat-option>
+                <mat-option value="14">District 14</mat-option>
+                <mat-option value="15">District 15</mat-option>
+                <mat-option value="16">District 16</mat-option>
+                <mat-option value="17">District 17</mat-option>
+                <mat-option value="18">District 18</mat-option>
+                <mat-option value="19">District 19</mat-option>
+                <mat-option value="20">District 20</mat-option>
+                <mat-option value="21">District 21</mat-option>
+                <mat-option value="22">District 22</mat-option>
+                <mat-option value="23">District 23</mat-option>
+                <mat-option value="24">District 24</mat-option>
+                <mat-option value="25">District 25</mat-option>
+                <mat-option value="26">District 26</mat-option>
+                <mat-option value="27">District 27</mat-option>
+                <mat-option value="28">District 28</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label for="usrPropDistrict">@district#</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">local_hotel</i>
+      
+            <mat-form-field class="ajflexrow-item1">
+              <mat-select style="text-align: left" [(value)]="prop.numBedRms">
+                <mat-option disabled value="none">BedRooms</mat-option>
+                <mat-option value=1>1 BedRm / Studio</mat-option>
+                <mat-option value=2>2 BedRms</mat-option>
+                <mat-option value=3>3 BedRms</mat-option>
+                <mat-option value=4>4 BedRms</mat-option>
+                <mat-option value=5>5 BedRms</mat-option>
+                <mat-option value=6>6 BedRms</mat-option>
+                <mat-option value=7>7 BedRms</mat-option>
+                <mat-option value=8>8 BedRms</mat-option>
+                <mat-option value=9>9 BedRms</mat-option>
+                <mat-option value=10>10 BedRms</mat-option>
+                <mat-option value=11>Penthouse</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label for="usrPropNumBedRms">room(s)</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">store_mall_directory</i>
+            <mat-form-field class="ajflexrow-item1">
+              <mat-select style="text-align: left" [(value)]="prop.offerType">
+                <mat-option disabled value="none">Property Type</mat-option>
+                <mat-option value="buy">Buy</mat-option>
+                <mat-option value="rent">Rent</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label for="usrPropOfferType">offerType</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">category</i>
+            <mat-form-field class="ajflexrow-item1">
+              <mat-select style="text-align: left" [(value)]="prop.proptyType">
+                <mat-option disabled value="none">Property Type</mat-option>
+                <mat-option value="hdb">HDB</mat-option>
+                <mat-option value="condo">Condo</mat-option>
+                <mat-option value="landed">Landed</mat-option>
+                <mat-option value="gcb">GC Bungalow</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <label for="usrProptyType">propertyType</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">attach_money</i>
+            <input type="text" #usrPropPrice="ngModel" id="usrPropPrice" name="usrPropPrice" [(ngModel)]="prop.price" class="validate"
+              placeholder="{{prop.price}}" required>
+            <label *ngIf="prop.offerType=='rent'" for="usrPropPrice">/mth</label>
+            <label *ngIf="prop.offerType=='buy'" for="usrPropPrice"></label>
+          </div>
+          -->
+          <div class="input-field col s12">
+            <i class="material-icons prefix">streetview</i>
+            <input type="text" #usrPropStName="ngModel" id="usrPropStName" name="usrPropStName" [(ngModel)]="prop.stName" class="validate"
+              placeholder="{{prop.stName}}" required>
+            <label for="usrPropStName">student email</label>
+          </div>
+          <!--
+          <div class="input-field col s12">
+            <i class="material-icons prefix">place</i>
+            <input type="text" #usrPropyFullAddr="ngModel" id="usrPropyFullAddr" name="usrPropyFullAddr" [(ngModel)]="prop.propyFullAddr"
+              class="validate" placeholder="{{prop.propyFullAddr}}" required>
+            <label for="usrPropyFullAddr">fullAddress</label>
+          </div>
+          <div class="input-field col s12">
+            <i class="material-icons prefix">local_shipping</i>
+            <input type="text" #usrPropyPostCode="ngModel" id="usrPropyPostCode" name="usrPropyPostCode" [(ngModel)]="prop.postCode"
+              class="validate" placeholder="{{prop.postCode}}" required>
+            <label for="usrPropyPostCode">postalCode</label>
+          </div>
+          -->
+          <br>
+          <hr>
+        </div>
+       
+      </section>
+
+    </div>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion>

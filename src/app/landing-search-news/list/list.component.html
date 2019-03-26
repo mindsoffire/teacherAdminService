@@ -1,0 +1,82 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      <strong>{{this.libSvc.showcaseTitle}}</strong>
+    </mat-card-title>
+    <mat-card-subtitle>in ascending student email order </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="justify-content: center; align-content: center">
+      <img *ngIf="!libSvc.listShow" style="max-width: 60px; max-height: auto" [src]="waitGif" alt="..pls wait.">
+    </div>
+    <p *ngIf="libSvc.listShow">..found {{libSvc.afslist.length}} students.</p>
+    <!-- <mat-list *ngIf="tokenSvc.loggedIn && !libSvc.browseAllFlag">
+      <mat-list-item *ngFor="let l of libSvc.searchList">{{l.offerType}}
+        <img matListAvatar src="{{libSvc.SERVER}}/images/{{l.listPhotoIcon}}" alt="">
+        <a matLine [routerLink]="[ '/list', l.id, l.usrCode]">
+          <h4 style="display: inline" matLine>
+            <strong *ngIf="l.offerType=='buy'"> <small>stName:{{l.stName}}sqft&nbsp;&nbsp; ${{l.price}} </small></strong>
+            <strong *ngIf="l.offerType=='rent'"> <small>stName:{{l.stName}}sqft&nbsp;&nbsp; ${{l.price}}/mth </small></strong>
+            <strong *ngIf="l.stName!='' && l.offerType==''"> <small>stName:{{l.stName}}sqft&nbsp;&nbsp; </small></strong>
+          </h4>
+        </a>
+        <button mat-icon-button (click)="showDetails(l.id, l.usrCode)">
+          <mat-icon>info</mat-icon>
+        </button>
+        <p matLine>
+          <span>D{{l.district}} @ {{l.stName}} </span>
+          <span class="demo-2">
+          </span>
+        </p>
+        <p matLine>
+          <span> Type - {{l.proptyType}}, {{l.numBedRms}}rm</span>
+        </p>
+      </mat-list-item>
+    </mat-list> -->
+    <br>
+    <br>
+    <br>
+    <!-- <mat-list *ngIf="libSvc.browseAllFlag || (libSvc.specSearch && !tokenSvc.loggedIn)"> -->
+    <mat-list>
+      <!-- <mat-list-item *ngFor="let propty of libSvc.propties | async">{{propty.offerType}} -->
+      <mat-list-item *ngFor="let propty of libSvc.afslist">{{propty.offerType}}
+        <img matListAvatar src="{{libSvc.SERVER}}/images/{{propty.listPhotoIcon}}" alt="">
+        <a matLine [routerLink]="[ '/list', propty.id, propty.usrCode]">
+          <h4 style="display: inline" matLine>
+            <strong *ngIf="propty.offerType=='buy'"> <small>stName:{{propty.stName}}sqft&nbsp;&nbsp; ${{propty.price}}
+              </small></strong>
+            <strong *ngIf="propty.offerType=='rent'"> <small>stName:{{propty.stName}}sqft&nbsp;&nbsp; ${{propty.price}}/mth
+              </small></strong>
+            <strong *ngIf="propty.stName!='' && propty.offerType==''"> <small>stName:{{propty.stName}}sqft&nbsp;&nbsp; </small></strong>
+          </h4>
+        </a>
+        <button mat-icon-button (click)="showDetails(propty.id, propty.usrCode)">
+          <mat-icon>info</mat-icon>
+        </button>
+        <p matLine>
+          <span>{{propty.stName}} </span>
+          <span class="demo-2">
+
+          </span>
+        </p>
+        <p matLine>
+          <span> Teacher - {{propty.proptyType}}, {{propty.numBedRms}}rm</span>
+          <!--           <span class="demo-2">
+
+          </span> -->
+        </p>
+      </mat-list-item>
+    </mat-list>
+    <!--     <ul *ngFor="let propty of propties | async">
+      <li>
+        <strong>{{ propty.proptyType}}</strong>
+        <br> {{propty.listPhotoIcon}}
+        <br> {{propty.id}}
+      </li>
+    </ul> -->
+  </mat-card-content>
+  <!-- <mat-card-actions *ngIf="kycYes">
+    <a mat-raised-button color="accent" routerLink="/agent-kyc">Back to agent ..</a>
+  </mat-card-actions> -->
+</mat-card>

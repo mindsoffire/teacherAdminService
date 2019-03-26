@@ -1,0 +1,320 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+.sk-cube-grid {
+  width: 60px;
+  height: 60px;
+  margin: 120px auto;
+}
+
+.sk-cube-grid .sk-cube {
+  width: 33%;
+  height: 33%;
+  float: left;
+  text-align: center;
+  -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+  animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+
+.sk-cube-grid .sk-cube1 {
+  background-color: hsl(0, 96%, 60%);
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube2 {
+  background-color: hsl(23, 77%, 66%);
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube3 {
+  background-color: hsl(60, 96%, 60%);
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.sk-cube-grid .sk-cube4 {
+  background-color: hsl(294, 90%, 18%);
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube5 {
+  background-color: hsl(249, 77%, 66%);
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+.sk-cube-grid .sk-cube6 {
+  background-color: hsl(108, 96%, 66%);
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.sk-cube-grid .sk-cube7 {
+  background-color: hsl(294, 77%, 66%);
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.sk-cube-grid .sk-cube8 {
+  background-color: hsl(294, 90%, 18%);
+  -webkit-animation-delay: 0.1s;
+  animation-delay: 0.1s;
+}
+
+.sk-cube-grid .sk-cube9 {
+  background-color: hsl(249, 77%, 66%);
+  -webkit-animation-delay: 0.2s;
+  animation-delay: 0.2s;
+}
+
+@-webkit-keyframes sk-cubeGridScaleDelay {
+  0%,
+  33%,
+  66%,
+  100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+  0%,
+  33%,
+  66%,
+  100% {
+    -webkit-transform: scale3D(1, 1, 1);
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    -webkit-transform: scale3D(0, 0, 1);
+    transform: scale3D(0, 0, 1);
+  }
+}
+
+.transparent {
+  background-color: transparent !important;
+}
+
+.transparent-background { background-color: rgba(0, 0, 0, 0); }
+
+body .ajinput-text {
+  color: black;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 12px;
+}
+
+.ajcat-button-label {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ajbutton-label {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container>* {
+  width: 100%;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.example-h2 {
+  margin: 6px;
+  font-size: 14px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.example-margin {
+  margin: 10px;
+}
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 5px;
+}
+
+.version-info {
+  font-size: 8pt;
+  float: right;
+}
+
+.example-card {
+  min-width: 150px;
+  max-width: 560px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+
+}
+
+.example-header-image p {
+  background-color: rgba(240, 248, 255, 0.2);
+  text-justify: newspaper;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container>* {
+  width: 100%;
+}
+
+.example-icon {
+  padding: 0 14px;
+}
+
+.example-spacer {
+  flex: 1 6 auto;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 560px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.example-button-toggle-label {
+  display: inline-block;
+  margin: 8px;
+}
+
+.example-selected-value {
+  margin: 15px 0;
+}
+
+.ajflexrow-container {
+  max-width: 96%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.ajflexrow-item {
+  display: inline-flex;
+  max-width: 30%;
+}
+.ajflexrow-item1 {
+  display: inline-flex;
+  max-width: 66%;
+}
+
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Robot, Oxygen;
+  font-weight : 300;
+  margin:  0px 6px;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+main{
+  display:grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/*   grid-template-columns: repeat(auto-fit, minmax(70px, 350px)); */
+  /* column-width: 350px; */
+  grid-auto-rows: max-content;
+  grid-auto-flow: row dense;
+}
+
+
+.app-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.article {
+  text-decoration: none;
+}
+
+.article-img {
+  object-fit: cover;
+  width: 100%;
+  display: block;
+  margin: 6px auto;
+  max-height: auto;
+}
+
+
+
+.example-chip-list {
+  width: 100%;
+}

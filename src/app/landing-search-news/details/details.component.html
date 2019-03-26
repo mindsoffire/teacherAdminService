@@ -1,0 +1,45 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+      <strong>LISTING DETAILS</strong>
+    </mat-card-title>
+    <mat-card-subtitle>ID:{{item[0].id}}</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="{{libSvc.SERVER}}/images/{{item[0].listPhotoIcon}}" alt="">
+
+  <mat-card-content>
+    <mat-list-item *ngIf="libSvc.listId!=0">
+      <!-- <img matListAvatar src="{{libSvc.SERVER}}/images/{{l.listPhotoIcon}}" alt=""> -->
+      <!-- can add agent's photo. -->
+
+      <a matLine>
+        <h4 style="display: inline" matLine>
+          <strong *ngIf="item[0].offerType=='buy'"> BUA:{{item[0].BUA}}sqft&nbsp;&nbsp;&nbsp;
+            ${{item[0].price}}&nbsp;&nbsp;&nbsp; {{item[0].offerType}}</strong>
+          <strong *ngIf="item[0].offerType=='rent'"> BUA:{{item[0].BUA}}sqft&nbsp;&nbsp;&nbsp;
+            ${{item[0].price}}/mth&nbsp;&nbsp;&nbsp; {{item[0].offerType}}</strong>
+        </h4>
+      </a>
+      <p matLine>
+        <span> {{item[0].stName}} </span>
+        <span class="demo-2">
+          D{{item[0].district}} {{item[0].numBedRms}}rm
+        </span>
+        {{item[0].proptyType}}
+      </p>
+      <header>
+        <div> AgentCode: {{item[0].usrCode}} </div>
+        <br>
+        <div> To inquire, pls call agent {{item[0].legalNameID}} @ {{item[0].mobileNumID}} </div>
+      </header>
+    </mat-list-item>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- <button color="primary" type="button" mat-button (click)="prevBook()" [disabled]="book['id']==1">Prevbook</button>
+    <button color="primary" type="button" mat-button (click)="nextBook()">NextBook</button>
+    <span class="example-spacer"></span> -->
+    <a mat-raised-button color="accent" routerLink="/list">Back</a>
+  </mat-card-actions>
+</mat-card>

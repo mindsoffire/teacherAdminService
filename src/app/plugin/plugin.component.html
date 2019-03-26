@@ -1,0 +1,48 @@
+<mat-card style="display:flex; align-items:center; justify-content:center; height:100%; width:90%; flex-direction: column">
+
+  <mat-card-header>
+    <span mat-card-avatar class="example-header-image"></span>
+    <mat-card-title>
+      <strong>Welcome to Teacher Admin Service Module..</strong>
+    </mat-card-title>
+    <mat-card-subtitle>Sign up / Log in</mat-card-subtitle>
+  </mat-card-header>
+
+  <br>
+  <br>
+  
+  <mat-card-content>
+
+    <section class="example-section" style="display:inline-block; align-items:center; justify-content:center">
+
+      <mat-form-field class="example-full-width">
+        <input matInput type="email" #emailID id="emailID" name="encEmailID" [(ngModel)]='tokenSvc.usrKYCDisp.emailID' class="validate" placeholder="{{emailPHolder}} eg. johndoe@gmail.com"
+          required (keyup.enter)="plugin('login', emailID.value, pw.value)">
+        <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input matInput [type]="hide ? 'password' : 'text'" #pw="ngModel" id="pw" name="hshPW" ngModel class="validate" placeholder="{{pwPHolder}}"
+          required (keyup.enter)="plugin('login', emailID.value, pw.value)">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>
+
+    </section>
+
+  </mat-card-content>
+
+  <!-- <mat-card-actions style="display:flex; align-items:center; justify-content:space-between; flex-direction:row"> -->
+  <mat-card-actions style="display:flex; align-items:center; justify-content:space-between; flex-wrap:nowrap">
+      <button mat-raised-button color="accent" [disabled]="!emailID.value||!pw.value||pwreset" (click)="plugin('signUpOrLogIn', emailID.value, pw.value)">SIGNUP / LOGIN</button>
+      <!--<button mat-raised-button color="primary" [disabled]="emailID.invalid||!pw.value" (click)="plugin('login', emailID.value, pw.value)">LOGIN</button>-->
+      <button mat-raised-button color="warn" [disabled]="emailID.invalid||!pw.value||!pwreset" (click)="plugin('resetPW', emailID.value, pw.value)">RESET PW</button>
+    <!-- <span class="example-margin">&nbsp;</span> -->
+  </mat-card-actions>
+
+  <div>
+    <p style="display: flex; flex-direction: column; max-width: 80vw; height: 100%;">Hi I'm Jane:
+      <strong style="color: blue">{{tokenSvc.status | json}}</strong>
+    </p>
+  </div>
+
+</mat-card>

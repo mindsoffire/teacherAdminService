@@ -571,14 +571,25 @@ aj.serve.app.get('/api/commonstudents', (req, res) => {
                 retnObj.push(astItem.stName);
             };
         };
-        if (typeof req.query.teacher === 'object') {
-            let len = 0; var teacherLenMore = true;
-            for (teacher of req.query.teacher) {
-                if (astItem.teacherEmail == teacher) console.log({ len: len += 1 });
-            }
-            if (len === req.query.teacher.length) retnObj.push(astItem.stName);
-        };
     };
+    if (typeof req.query.teacher === 'object') {
+        var retnObj1 = [[], []], teacherLenMore = true;
+        for (let [idx, teacher] of req.query.teacher.entries()) {
+            for (let astItem of searchAllItems) {
+                if (astItem.teacherEmail == teacher) retnObj1[idx].push(astItem.stName);
+            }
+        }
+    };
+    console.log({ retnObj1, 'retnObj1[1]': retnObj1[1], 'retnObj1.len': retnObj1.length }); var find = 1;
+    for (let stud of retnObj1[0]) {
+        find = 1; /* console.log({ stud, find }); */
+        for (let i = 1; i <= retnObj1.length - 1; i++) {
+            // console.log('in here');
+            if (retnObj1[i].indexOf(stud) !== -1) find += 1;
+        }
+        if (find == retnObj1.length) retnObj.push(stud);
+        // console.log({ retnObj });
+    }
     teacherLenMore ?
         retnObj.push('student(s)_only_under_teachers_' + req.query.teacher.join('_and_'))
         :

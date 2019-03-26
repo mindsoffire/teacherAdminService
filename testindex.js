@@ -56,3 +56,28 @@ request(options, function (error, response, body) {
 //       "student_only_under_teacher_ken@gmail.com"
 //     ]
 // }
+
+
+
+
+var options = { method: 'GET',
+  url: 'http://localhost:6707/api/commonstudents',
+  qs: { teacher: [ 'offire@gmail.com', 'dudu@gmail.com' ] },
+  headers: 
+   { 'Postman-Token': 'e638a31f-9ace-4f80-8879-3fbab95b3191',
+     'cache-control': 'no-cache' } };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+// Request example 2: GET /api/commonstudents?teacher=teacherken%40example.com&teacher=teacherjoe%40example.com
+// Success response body 2:
+// {
+//   "students" :
+//     [
+//       "commonstudent1@gmail.com", 
+//       "commonstudent2@gmail.com"
+//     ]
+// }

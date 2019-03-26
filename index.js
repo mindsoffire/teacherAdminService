@@ -580,16 +580,19 @@ aj.serve.app.get('/api/commonstudents', (req, res) => {
             }
         }
     };
-    console.log({ retnObj1, 'retnObj1[1]': retnObj1[1], 'retnObj1.len': retnObj1.length }); var find = 1;
-    for (let stud of retnObj1[0]) {
-        find = 1; /* console.log({ stud, find }); */
-        for (let i = 1; i <= retnObj1.length - 1; i++) {
-            // console.log('in here');
-            if (retnObj1[i].indexOf(stud) !== -1) find += 1;
+    if (teacherLenMore) {
+        console.log({ retnObj1, 'retnObj1[1]': retnObj1[1], 'retnObj1.len': retnObj1.length }); var find = 1;
+        for (let stud of retnObj1[0]) {
+            find = 1; /* console.log({ stud, find }); */
+            for (let i = 1; i <= retnObj1.length - 1; i++) {
+                // console.log('in here');
+                if (retnObj1[i].indexOf(stud) !== -1) find += 1;
+            }
+            if (find == retnObj1.length) retnObj.push(stud);
+            // console.log({ retnObj });
         }
-        if (find == retnObj1.length) retnObj.push(stud);
-        // console.log({ retnObj });
     }
+
     teacherLenMore ?
         retnObj.push('student(s)_only_under_teachers_' + req.query.teacher.join('_and_'))
         :

@@ -7,7 +7,7 @@ var options = { method: 'POST',
    { 'Postman-Token': '5c475411-9699-436b-b89f-d1ba45bda6a3',
      'cache-control': 'no-cache',
      'Content-Type': 'application/json' },
-  body: { student: 'andrew@gmail.com' },
+  body: { student: 'iii@me.me' },
   json: true };
 
 request(options, function (error, response, body) {
@@ -80,4 +80,67 @@ request(options, function (error, response, body) {
 //       "commonstudent1@gmail.com", 
 //       "commonstudent2@gmail.com"
 //     ]
+// }
+
+
+
+var options = { method: 'POST',
+  url: 'http://localhost:6707/api/retrievefornotifications',
+  headers: 
+   { 'Postman-Token': '3a4bd8a8-2d51-48ba-8612-933541b0352c',
+     'cache-control': 'no-cache',
+     'Content-Type': 'application/json' },
+  body: 
+   { teacher: 'ajmindsoffire@gmail.com',
+     notification: 'Hello students, no class this week! @andrew@gmail.com @leo@gmail.com @linus@gmail.com' },
+  json: true };
+
+request(options, function (error, response, body) {
+  if (error) throw new Error(error);
+
+  console.log(body);
+});
+// 4. As a teacher, I want to retrieve a list of students who can receive a given notification.
+// A notification consists of:
+
+// the teacher who is sending the notification, and
+// the text of the notification itself.
+// To receive notifications from e.g. 'teacherken@example.com', a student:
+
+// MUST NOT be suspended,
+// AND MUST fulfill AT LEAST ONE of the following:
+// is registered with “teacherken@example.com"
+// has been @mentioned in the notification
+// The list of students retrieved should not contain any duplicates/repetitions.
+
+// Endpoint: POST /api/retrievefornotifications
+// Headers: Content-Type: application/json
+// Success response status: HTTP 200
+// Request body example 1:
+// {
+//   "teacher":  "teacherken@example.com",
+//   "notification": "Hello students! @studentagnes@example.com @studentmiche@example.com"
+// }
+// Success response body 1:
+// {
+//   "recipients":
+//     [
+//       "studentbob@example.com",
+//       "studentagnes@example.com", 
+//       "studentmiche@example.com"
+//     ]   
+// }
+// In the example above, studentagnes@example.com and studentmiche@example.com can receive the notification from teacherken@example.com, regardless whether they are registered to him, because they are @mentioned in the notification text. studentbob@example.com however, has to be registered to teacherken@example.com.
+
+// Request body example 2:
+// {
+//   "teacher":  "teacherken@example.com",
+//   "notification": "Hey everybody"
+// }
+// Success response body 2:
+// {
+//   "recipients":
+//     [
+//       "studentbob@example.com",
+//     ]   
 // }

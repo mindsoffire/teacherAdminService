@@ -112,6 +112,8 @@ if (!doneOnce) {
                     // fillPropertyMasterList.BUA = +propAndusr.BUA;
                     fillPropertyMasterList.stName = propAndusr.stName;
                     fillPropertyMasterList.teacherEmail = propAndusr.teacherEmail;
+                    fillPropertyMasterList.suspended = propAndusr.suspended ? propAndusr.suspended : false;
+                    fillPropertyMasterList.notification = propAndusr.notification ? propAndusr.notification : '';
                     fillPropertyMasterList.listPhotoIcon = propAndusr.listPhotoIcon;
                     fillPropertyMasterList.is_deleted = propAndusr.is_deleted;
                     fillPropertyMasterList.legalNameID = agentDistributedCMSJSONdB[0].usr.legalNameID;
@@ -548,6 +550,7 @@ aj.serve.app.post('/api/suspend', (req, res) => {
     for (let [AllIndex, astItem] of searchAllItems.entries()) {
         if (astItem.stName == req.body.student.trim()) {
             astItem.suspended = true;
+            docRef.doc(searchAllItems[AllIndex].usrCode + searchAllItems[AllIndex].id).set(searchAllItems[AllIndex]);
             fs.writeFile(`./propylist-master.json`, JSON.stringify(searchAllItems), 'utf8', (err) => {
                 if (err) {
                     console.log("::eror:: writing to propertyList-master jsonDB file.");
@@ -557,6 +560,44 @@ aj.serve.app.post('/api/suspend', (req, res) => {
         }
     }
     return res.status(204).end();
+
+});
+
+aj.serve.app.post('/api/retrievefornotifications', (req, res) => {
+    aj.trace('/api/retrievefornotifications[POST]: req.body')(req.body);
+
+    let studentsNotified = [], notificationStuds = req.body.notification.split(' @'), notifyMsg = notificationStuds.shift().trim(), teacherNotifying = req.body.teacher.trim();
+    for (let [AllIndex, astItem] of searchAllItems.entries()) {
+        for (let stud of notificationStuds) {
+            if (astItem.stName == stud && !astItem.suspended) {
+                studentsNotified.push(astItem.stName);
+                astItem.notification = `'${notifyMsg}' sent by ${teacherNotifying}`;
+                docRef.doc(searchAllItems[AllIndex].usrCode + searchAllItems[AllIndex].id).set(searchAllItems[AllIndex]);
+                fs.writeFile(`./propylist-master.json`, JSON.stringify(searchAllItems), 'utf8', (err) => {
+                    if (err) {
+                        console.log("::eror:: writing to propertyList-master jsonDB file.");
+                    }
+                    console.log("::good:: updated propertyList-master jsonDB file.");
+                });
+            }
+        };
+        if (astItem.teacherEmail == teacherNotifying && !astItem.suspended) {
+            studentsNotified.push(astItem.stName);
+            astItem.notification = `'${notifyMsg}' sent by ${teacherNotifying}`;
+            docRef.doc(searchAllItems[AllIndex].usrCode + searchAllItems[AllIndex].id).set(searchAllItems[AllIndex]);
+            fs.writeFile(`./propylist-master.json`, JSON.stringify(searchAllItems), 'utf8', (err) => {
+                if (err) {
+                    console.log("::eror:: writing to propertyList-master jsonDB file.");
+                }
+                console.log("::good:: updated propertyList-master jsonDB file.");
+            });
+        };
+    }
+    studentsNotified = Array.from(new Set(studentsNotified));
+    return res.status(200).json({
+        recipients: studentsNotified,
+        status: `..these students have been successfully notified by ${teacherNotifying} with the msg '${notifyMsg}'!`
+    });
 
 });
 
@@ -592,6 +633,7 @@ aj.serve.app.get('/api/commonstudents', (req, res) => {
             // console.log({ retnObj });
         }
     }
+    if (retnObj.length === 0) retnObj.push("found no students...");
 
     teacherLenMore ?
         retnObj.push('student(s)_only_under_teachers_' + req.query.teacher.join('_and_'))

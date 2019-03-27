@@ -59,8 +59,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Running unit tests
 
-No unit test have been built yet.
-https://web.postman.co/collections/7052732-eb2f09cd-984d-4996-876b-d5d17d3e48fa?workspace=7395ad5a-11af-46f5-88cb-2697a558a560
+Please run tests following postman collection in the sequence - these test only endpts 2,3,4.  Endpt 1 can be tested by loading the front end and checking propylist-master.json per change.  All posts are replicated into firestore, can be verified on frontEnd indexDB - firestore[DEFAULT] - remoteDocuments.
+https://web.postman.co/collections/7052732-eb2f09cd-984d-4996-876b-d5d17d3e48fa?workspace=7395ad5a-11af-46f5-88cb-2697a558a560#7cd61628-936c-4cd8-98d4-1f92822033d0
 
 ## Running end-to-end tests
 ## Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
